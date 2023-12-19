@@ -4,7 +4,7 @@ cpp_file="main.cpp"
 
 # Get the first line of the .cpp file
 first_line=$(head -n 1 "$cpp_file")
-substring=$(echo "$input_string" | awk '{print substr($0, 3)}')
+substring=$(echo "$first_line" | awk '{print substr($0, 3)}')
 echo ${substring}
 
 problem_code=$(echo "$first_line" | awk -F'/' '{print $(NF-0)}')
@@ -23,3 +23,4 @@ echo "New file created: $new_file"
 # Upload to github
 git add ${new_file}
 git commit -m "Add ${first_line}"
+git push
