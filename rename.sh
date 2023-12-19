@@ -17,3 +17,7 @@ new_file="${problem_number}${problem_code}.cpp"
 echo "$(<"$cpp_file")" > "$new_file"
 
 echo "New file created: $new_file"
+
+# Upload to github
+git add ${new_file}
+git commit -m "Add ${first_line}"
