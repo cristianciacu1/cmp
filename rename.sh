@@ -4,6 +4,8 @@ cpp_file="main.cpp"
 
 # Get the first line of the .cpp file
 first_line=$(head -n 1 "$cpp_file")
+substring=$(echo "$input_string" | awk '{print substr($0, 3)}')
+echo ${substring}
 
 problem_code=$(echo "$first_line" | awk -F'/' '{print $(NF-0)}')
 
