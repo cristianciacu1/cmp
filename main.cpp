@@ -1,61 +1,82 @@
-// https://codeforces.com/problemset/problem/1907/C
+// https://codeforces.com/problemset/problem/1675/C
 #include <iostream>
 #include <set>
+#include <stack>
 #include <unordered_map>
 #include <math.h>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+#include <queue>
+
+#define ll long long
 
 using namespace::std;
 
-bool distinct(int n) {
-    set<int> s;
-    while (n) {
-        if (s.find(n % 10) != s.end()) return false;
-        s.insert(n % 10);
-        n /= 10;
-    }
-    return true;
-}
+struct Node {
+    ll id;
+    vector<Node> n;
 
-string userAndId(string s) {
-    bool num[51] = {false};
-    num[s.length() - 1] = true;    
-    for (int i = s.length() - 2; i >= 0; --i) {
-        if (s[i] >= '0' && s[i] <= '9' && num[i+1] == true) {
-            num[i] = true;
-        } else num[i] = false;
+    Node(ll id_) {
+        id = id_;
     }
 
-    string ans = "";
-    for (int i = 0; i < s.length(); ++i) {
-        if (num[i] == true && s[i] != '0') {
-            return ans;
-        }
-        ans += s[i];
+    Node() {}
+};
+
+struct Edge {
+    Node a, b;
+
+    Edge(Node a_, Node b_) {
+        a = a_;
+        b = b_;
     }
-    return ans;
-}
+};
+
+struct Graph {
+    vector<Node> nodes;
+    vector<Edge> edges;
+};
 
 int main() {
     int t; cin >> t;
-    int n;
     while (t--) {
-        cin >> n; cin.get();
-        int siz = n;
-        unordered_map<char, int> m;
-        int max_occ = INT_MIN;
-        while (n--) {
-            char c; cin.get(c);
-            m[c]++;
-            max_occ = max(max_occ, m[c]);
-        }
-        cin.get();
+        int n; cin >> n;
+        ll largest_start = INT_MIN;
+        ll smallest_end = INT_MAX;
+        set<ll> r;
 
-        if (max_occ >= ceil(siz / 2.0)) {
-            cout << 2 * max_occ - siz << "\n";
-            continue;
+        for (int i = 0; i < n; ++i) {
+            ll a, b;
+            cin >> a >> b;
+
+            if (a == 1) {
+                largest_start = max(largest_start, b);
+            }
+            if (a == 2) {
+                smallest_end = min(smallest_end, b);
+            }
+            if (a == 3) {
+                r.insert(b);
+            }
         }
-        if (siz % 2 == 0) cout << 0 << "\n";
-        else cout << 1 << "\n";
+        
+        ll diff = smallest_end - largest_start + 1;
+
+        if (diff < 0) { cout << "0\n"; continue; }
+
+        if (r.size() < diff) {
+            for (const auto& i: r) {
+                if (i >= largest_start && i <= smallest_end) --diff;
+            }
+        } else {
+            for (int i = largest_start; i <= smallest_end; ++i) {
+                if (r.find(i) != r.end()) --diff;
+            }
+        }
+
+        cout << diff << "\n";
     }
     return 0;
 }
