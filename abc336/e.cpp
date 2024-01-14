@@ -54,6 +54,27 @@ vector<int> get_divs(int n) {
 }
 
 int main() {
-    
+    ll n; cin >> n;
+
+    ll ans = 0;
+
+    ll num = 0;
+    int x = n;
+    while (x > 0) {
+        num++; x /= 10;
+    }
+
+    for (ll i = 1; i <= min(n, 9 * num + 2); ++i) {
+        ll sum = 0;
+        ll j = i;
+        while (j > 0) {
+            sum += j % 10;
+            j /= 10;
+        }
+        if (i % sum == 0) { ans++; cout << i << "\n"; }
+    }
+
+    cout << ans << "\n";
+
     return 0;
 }

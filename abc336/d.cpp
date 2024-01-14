@@ -1,3 +1,5 @@
+// not solved during the contest.
+// solution was inspired from the editorial.
 #include <iostream>
 #include <set>
 #include <stack>
@@ -8,6 +10,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <map>
+#include <climits>
 
 #define ll long long
 
@@ -54,6 +57,25 @@ vector<int> get_divs(int n) {
 }
 
 int main() {
-    
+    int n; cin >> n;
+    vector<int> v(n);
+    for (int i = 0; i < n; ++i) cin >> v[i];
+
+    vector<int> l(n), r(n);
+    l[0] = min(v[0], 1);
+    r[n - 1] = min(v[n - 1], 1);
+
+    for (int i = 1; i < n; ++i) {
+        l[i] = min(v[i], l[i - 1] + 1);
+    }
+
+    for (int i = n - 2; i >= 0; --i) {
+        r[i] = min(v[i], r[i + 1] + 1);
+    }
+
+    int ans = INT_MIN;
+    for (int i = 0; i < n; ++i) ans = max(ans, min(l[i], r[i]));
+
+    cout << ans << "\n";
     return 0;
 }

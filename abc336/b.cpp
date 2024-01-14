@@ -54,6 +54,30 @@ vector<int> get_divs(int n) {
 }
 
 int main() {
-    
+    ll n; cin >> n;
+
+    if (n % 2 == 1) { cout << "0\n"; return 0; } 
+
+    ll biggest = 1;
+    int steps = 0;
+    while (biggest < n) {
+        biggest *= 2;
+        ++steps;
+    }
+    if (biggest == n) {
+        cout << steps << "\n";
+    } else {
+        --steps;
+        biggest /= 2;
+
+        while (n != biggest) {
+            if (biggest < n)
+                n -= biggest;
+            --steps;
+            biggest /= 2;
+        }
+
+        cout << steps << "\n";
+    }
     return 0;
 }

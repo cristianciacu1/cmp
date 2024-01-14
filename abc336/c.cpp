@@ -54,6 +54,28 @@ vector<int> get_divs(int n) {
 }
 
 int main() {
-    
+    ll n; cin >> n;
+    n--;
+
+    ll biggest = 1;
+    ll ans = -1;
+    while (biggest * 5 <= n) {
+        biggest *= 5;
+    }
+
+    while (biggest > 0) {
+        // cout << n << "\n";
+        int imp = n / biggest;
+        if (ans == -1) ans = 2 * imp;
+        else {
+            ans *= 10;
+            ans += 2 * imp;
+        }
+        n -= imp * biggest;
+        biggest /= 5;
+    }
+
+    cout << ans << '\n';
+
     return 0;
 }

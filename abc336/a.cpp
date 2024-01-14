@@ -54,6 +54,9 @@ vector<int> get_divs(int n) {
 }
 
 int main() {
-    
+    int n; cin >> n;
+    cout << "L";
+    for (int i = 0; i < n; ++i) cout << "o";
+    cout << "ng\n";
     return 0;
 }
