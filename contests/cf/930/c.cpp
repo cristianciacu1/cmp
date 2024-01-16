@@ -54,6 +54,29 @@ vector<int> get_divs(int n) {
 }
 
 int main() {
-    
+    int t; cin >> t;
+    while (t--) {
+        ll n, f, a, b;
+        cin >> n >> f >> a >> b;
+        vector<ll> v(n);
+        for (int i = 0; i < n; ++i) cin >> v[i];
+
+        int since_when_is_on = 0;
+
+        for (int i = 0; i < n && f > 0; ++i) {
+            const ll have_it_turned_on = (v[i] - since_when_is_on) * a;
+            const ll have_it_closed = b;
+            if (have_it_closed < have_it_turned_on) {
+                f -= have_it_closed;
+                since_when_is_on = v[i];
+            } else {
+                f -= have_it_turned_on;
+            }
+        }
+
+        if (f <= 0) cout << "NO\n";
+        else cout << "YES\n";
+
+    }
     return 0;
 }

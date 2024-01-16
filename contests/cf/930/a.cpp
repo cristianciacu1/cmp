@@ -1,3 +1,4 @@
+// https://codeforces.com/problemset/problem/1675/C
 #include <iostream>
 #include <set>
 #include <stack>
@@ -54,6 +55,15 @@ vector<int> get_divs(int n) {
 }
 
 int main() {
-    
+    int t; cin >> t;
+    while (t--) {
+        vector<pair<int, int> > a(4);
+        for (int i = 0; i < 4; ++i) {
+            cin >> a[i].first >> a[i].second;
+        }
+        sort(a.begin(), a.end());
+
+        cout << abs(a[0].second  - a[1].second) * abs(a[2].second - a[3].second) << "\n";
+    }
     return 0;
 }
